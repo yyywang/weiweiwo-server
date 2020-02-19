@@ -1,0 +1,67 @@
+{% extends 'admin/layout.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card alert">
+                {% for message in get_flashed_messages() %}
+                    <div style="text-align: center">{{ message }}</div>
+                {% endfor %}
+                {% if paginate %}
+                    <div class="card-header">
+                        <span>纠错信息 共
+                            <span style="color: #a675a1">{{ paginate.total }}</span> 条
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive table-hover ">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">序号</th>
+                                <th>问题</th>
+                                <th>提交时间</th>
+                                <th>电话</th>
+                                <th>微信</th>
+                                <th>省市区</th>
+                                <th>地址</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in paginate.items %}
+                                <tr>
+                                    <th scope="row"
+                                        style="text-align: center">{{ loop.index + (paginate.page - 1)*paginate.per_page }}</th>
+                                    <td>{{ item.error_content }}</td>
+                                    <td>{{ item.create_datetime }}</td>
+                                    <td>{{ item.seek_help.phone }}</td>
+                                    <td>{{ item.seek_help.wx_id }}</td>
+                                    <td>{{ item.seek_help.province }}/{{ item.seek_help.city }}/{{ item.seek_help.district }}</td>
+                                    <td>{{ item.seek_help.address }}</td>
+                                    {#                                    <td>#}
+                                    {#                                        <button type="button" class="btn btn-sm btn-info command-detail"#}
+                                    {#                                                data-url=""#}
+                                    {#                                                onclick="onAnalysisUser(this)">数据分析#}
+                                    {#                                        </button>#}
+                                    {#                                        <button type="button" class="btn btn-sm btn-success command-detail"#}
+                                    {#                                                data-url=""#}
+                                    {#                                                onclick="onEditUser(this)">编辑#}
+                                    {#                                        </button>#}
+                                    {#                                    </td>#}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    </div><!-- /# card -->
+                {% endif %}
+            {% if paginate %}
+                <div class="col-lg-12">
+                    {% from "admin/_macros.html" import page_nav with context %}
+                    {{ page_nav('admin.get_feedback') }}
+                </div>
+            {% endif %}
+        </div><!-- /# column -->
+    </div>
+{% endblock %}
+{% block js %}
+    {{ super() }}
+{% endblock %}

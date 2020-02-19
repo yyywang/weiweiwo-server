@@ -1,0 +1,102 @@
+{# 分页组件 #}
+{% macro page_nav(url) %}
+    <nav aria-label="Page navigation" style="text-align: center;">
+        <ul class="pagination">
+            <li {% if not paginate.has_prev %} class="disabled" {% endif %}>
+                <a {% if paginate.has_prev %}
+                    href="{{ url_for(url, page=paginate.prev_num) }}"
+                {% endif %}
+                    aria-label="Previous">
+                    <span aria-hidden="true">&laquo;上一页</span>
+                </a>
+            </li>
+            <li {% if not paginate.has_next %} class="disabled" {% endif %}>
+            <a  {% if paginate.has_next %}
+                        href="{{ url_for(url, page=paginate.next_num) }}"
+                {% else %}
+                        class="disabled"
+                {% endif %}
+                        aria-label="Next">
+                    <span aria-hidden="true">下一页&raquo;</span>
+                </a>
+            </li>
+        </ul>
+        <div class="jump-page" style="display: inline-block; position: absolute; top: 40%; right: 20px;">
+            <span>共 {{ paginate.pages }} 页&nbsp;&nbsp;</span>
+            <span>跳转到第 </span>
+            <select id="jump-page-select" style="width: 3em;">
+                {% for page in range(1,paginate.pages+1,1) %}
+                    <option {% if page == paginate.page %} selected="selected" {% endif %}>{{ page }}</option>
+                {% endfor %}
+            </select>
+            <span>页</span>
+        </div>
+    </nav>
+    <script src="{{ url_for('static',filename='admin/js/lib/jquery.min.js') }}"></script>
+    <script>
+        $('.jump-page').change(function () {
+            var page = $('#jump-page-select').val();
+            {% if category!= None %}
+                location.href = '{{ url_for(url, category=category) }}' + '&page=' + page;
+            {% else %}
+                location.href = '{{ url_for(url) }}' + '?page=' + page;
+            {% endif %}
+        })
+    </script>
+{% endmacro %}
+
+{#################路由有变化id的分页组件  #}
+
+{% macro page_nav_id(url, id, category=None) %}
+    <nav aria-label="Page navigation" style="text-align: center;">
+        <ul class="pagination">
+            <li {% if not paginate.has_prev %} class="disabled" {% endif %}>
+                <a {% if paginate.has_prev %}
+                    {% if category != None %}
+                        href="{{ url_for(url, category=category, id=id, page=paginate.prev_num) }}"
+                    {% else %}
+                        href="{{ url_for(url, id=id, page=paginate.prev_num) }}"
+                    {% endif %}
+                {% endif %}
+                        aria-label="Previous">
+                    <span aria-hidden="true">&laquo;上一页</span>
+                </a>
+            </li>
+            <li {% if not paginate.has_next %} class="disabled" {% endif %}>
+                <a  {% if paginate.has_next %}
+                    {% if category != None %}
+                        href="{{ url_for(url, category=category, id=id, page=paginate.next_num) }}"
+                    {% else %}
+                        href="{{ url_for(url, id=id, page=paginate.next_num) }}"
+                    {% endif %}
+                {% else %}
+                        class="disabled"
+                {% endif %}
+                        aria-label="Next">
+                    <span aria-hidden="true">下一页&raquo;</span>
+                </a>
+            </li>
+        </ul>
+        <div class="jump-page" style="display: inline-block; position: absolute; top: 40%; right: 20px;">
+            <span>共 {{ paginate.pages }} 页&nbsp;&nbsp;</span>
+            <span>跳转到第 </span>
+            <select id="jump-page-select" style="width: 3em;">
+                {% for page in range(1,paginate.pages+1,1) %}
+                    <option {% if page == paginate.page %} selected="selected" {% endif %}>{{ page }}</option>
+                {% endfor %}
+            </select>
+            <span>页</span>
+        </div>
+    </nav>
+    <script src="{{ url_for('static',filename='admin/js/lib/jquery.min.js') }}"></script>
+    <script>
+        $('.jump-page').change(function () {
+            var page = $('#jump-page-select').val();
+            {% if category!= None %}
+                location.href = '{{ url_for(url, category=category, id=id) }}' + '?page=' + page;
+            {% else %}
+                location.href = '{{ url_for(url, id=id) }}' + '?page=' + page;
+            {% endif %}
+        })
+    </script>
+{% endmacro %}

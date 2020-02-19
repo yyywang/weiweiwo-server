@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>喂喂我 | 后台管理</title>
+
+    <!-- ================= Favicon ================== -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/browser-ico.png') }}">
+    <!-- Styles -->
+    <link href="{{ url_for('static', filename='admin/fontAwesome/css/fontawesome-all.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='admin/css/lib/themify-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='admin/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='admin/css/lib/nixon.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='admin/css/style.css') }}" rel="stylesheet">
+</head>
+
+<body class="bg-primary">
+
+    <div class="Nixon-login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <div class="login-content">
+                        <div class="login-form">
+                            <h4>喂喂我 | 后台管理</h4>
+                            {% for key, errors in form.errors.items() %}
+                                    <div class="alert alert-danger fade in alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert"
+                                           aria-label="close">&times;</a>
+                                        <strong>
+                                            {% for error in errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </strong>
+                                    </div>
+                                {% endfor %}
+
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-{{ category }} fade in alert-dismissable">
+                                            <a href="#" class="close" data-dismiss="alert"
+                                               aria-label="close">&times;</a>
+                                            <strong>{{ message }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endwith %}
+                            <form action="{{ url_for('admin.login', next=request.args.next) }}" method="post">
+                                <div class="form-group">
+                                    <label>账号</label>
+                                    <input type="text" name="account" class="form-control" placeholder="请输入账号" value="{{ form.account.data }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>密码</label>
+                                    <input type="password" name="password" class="form-control" placeholder="请输入密码" required>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+										<input type="checkbox" name="remember"> 记住? 30天自动登录
+									</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">登录</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

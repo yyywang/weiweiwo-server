@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>喂喂我后台管理</title>
+    {% block css %}
+        <!-- ================= Favicon ================== -->
+{#        <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/browser-ico.png') }}">#}
+        <!-- Styles -->
+        <link href="{{ url_for('static',filename='admin/fontAwesome/css/fontawesome-all.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='admin/css/lib/themify-icons.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='admin/css/lib/mmc-chat.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static',filename='admin/css/lib/sidebar.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='admin/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='admin/css/lib/nixon.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='admin/css/style.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/lib/sweetalert/sweetalert.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/lib/toastr/toastr.min.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+
+<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+    <div class="nano">
+        <div class="nano-content">
+            {% block sidebar %}
+                <ul>
+                    <li {% if active_page == 'feedback' %} class="active" {% endif %}><a
+                            href="{{ url_for('admin.get_feedback') }}"><i
+                            class="ti-back-left"></i> 纠错管理 </a></li>
+                    <li {% if active_page == 'seek_help' %} class="active" {% endif %}><a href="{{ url_for('admin.get_seek_help') }}"><i
+                            class="ti-control-record"></i> 求助管理 </a></li>
+                    <li {% if active_page == 'logout' %} class="active" {% endif %}><a
+                            href="{{ url_for('admin.logout') }}"><i class="ti-close"></i> 退出 </a>
+                    </li>
+                </ul>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<!-- /# sidebar -->
+
+
+<div class="header">
+    <div class="pull-left">
+        <div class="logo">
+            <a href="{{ url_for('admin.index') }}">
+{#                <img id="logoImg" src="{{ url_for('static',filename='admin//images/logotop.png') }}"/>#}
+            </a>
+        </div>
+        <div class="hamburger sidebar-toggle">
+            <span class="ti-menu"></span>
+        </div>
+    </div>
+
+    <div class="pull-right p-r-15">
+        <ul>
+            <li class="header-icon dib"><img class="avatar-img"
+                                             src="{{ url_for('static',filename='admin/images/avatar/1.jpg') }}" alt=""/>
+                <span class="user-avatar">管理员：{{ session['admin'] }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="content-wrap">
+    <div class="main">
+
+        <div class="row" style="margin-left: 0;margin-right: 0;">
+            <div class="col-lg-1 p-0">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h1>
+                                <span class="ti-back-left" onclick="javascript: history.back()"
+                                      style="cursor: pointer"></span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 p-0">
+                <div class="page-header">
+                    <div class="page-title">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 p-0">
+                <div class="page-header">
+                    <div class="page-title">
+
+                        <ol class="breadcrumb text-right">
+                            {% if active_page == 'feedback' %}
+                                <li><a>纠错管理</a></li>
+                            {% elif active_page == 'seek_help' %}
+                                <li><a>求助管理</a></li>
+                            {% endif %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- //////////////////////main-content -->
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- /# main content -->
+    </div>
+    <!-- /# container-fluid -->
+</div>
+<!-- /# main -->
+</div>
+<!-- /# content wrap -->
+
+{% block js %}
+    <script src="{{ url_for('static',filename='admin/js/lib/jquery-3.3.1.min.js') }}"></script>
+    <!-- jquery vendor -->
+    <script src="{{ url_for('static',filename='admin/js/lib/jquery.nanoscroller.min.js') }}"></script>
+    <!-- nano scroller -->
+    <script src="{{ url_for('static',filename='admin/js/lib/sidebar.js') }}"></script>
+    <!-- sidebar -->
+    <script src="{{ url_for('static',filename='admin/js/lib/bootstrap.min.js') }}"></script>
+    <!-- bootstrap -->
+    <script src="{{ url_for('static',filename='admin/js/lib/mmc-common.js') }}"></script>
+    {#    <script src="{{ url_for('static',filename='admin/js/lib/mmc-chat.js') }}"></script>#}
+    <script src="{{ url_for('static',filename='admin/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/lib/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/lib/toastr/toastr.min.js') }}"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            {% if category == 'alert_success' %}
+                <script>
+                    $(function () {
+                        swal("{{ message }}", "", "success");
+                    })
+                </script>
+            {% elif category == 'alert_error' %}
+                <script>
+                    $(function () {
+                        sweetAlert("{{ message }}", "", "error");
+                    })
+                </script>
+            {% elif category == 'toast_success' %}
+                <script>
+                    $(function () {
+                        toastr.success('{{ message }}', '操作成功', {
+                            timeOut: 5000,
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut",
+                            "tapToDismiss": false
+
+                        })
+                    })
+                </script>
+            {% elif category == 'toast_error' %}
+                <script>
+                    $(function () {
+                        toastr.error('{{ message }}', '操作失败', {
+                            "positionClass": "toast-top-right",
+                            timeOut: 5000,
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": true,
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut",
+                            "tapToDismiss": false
+
+                        })
+                    })
+                </script>
+            {% endif %}
+
+        {% endfor %}
+    {% endwith %}
+{% endblock %}
+
+
+</body>
+
+</html>

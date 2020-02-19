@@ -1,0 +1,92 @@
+{% extends 'admin/layout.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card alert">
+                {% for message in get_flashed_messages() %}
+                    <div style="text-align: center">{{ message }}</div>
+                {% endfor %}
+                {% if paginate %}
+                    <div class="card-header">
+                        <span>求助信息 共 <span style="color: #a675a1">{{ paginate.total }}</span> 条<span/>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive table-hover ">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">序号</th>
+                                <th>提交时间</th>
+                                <th>电话</th>
+                                <th>微信</th>
+                                <th>省市区</th>
+                                <th>地址</th>
+                                <th>几只猫</th>
+                                <th>几只狗</th>
+                                <th>上次喂养日期</th>
+                                <th>需要帮助日期</th>
+                                <th>小区管控情况</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in paginate.items %}
+                                <tr>
+                                    <th scope="row"
+                                        style="text-align: center">{{ loop.index + (paginate.page - 1)*paginate.per_page }}</th>
+                                    <td>{{ item.create_datetime }}</td>
+                                    <td>{{ item.phone }}</td>
+                                    <td>{{ item.wx_id }}</td>
+                                    <td>{{ item.province }}/{{ item.city }}/{{ item.district }}</td>
+                                    <td>{{ item.address }}</td>
+                                    <td>{{ item.cat_num }}</td>
+                                    <td>{{ item.dog_num }}</td>
+                                    <td>{{ item.end_datetime }}</td>
+                                    <td>{{ item.help_datetime }}</td>
+                                    <td>{{ item.traffic_ctrl }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger command-detail"
+                                                data-id="{{ item.id }}"
+                                                onclick="onDeleteSeekHelp(this)">删除
+                                        </button>
+                                        {#                                        <button type="button" class="btn btn-sm btn-success command-detail"#}
+                                        {#                                                data-id=""#}
+                                        {#                                                onclick="onShowSeekHelp(this)">恢复#}
+                                        {#                                        </button>#}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    </div><!-- /# card -->
+                {% endif %}
+            {% if paginate %}
+                <div class="col-lg-12">
+                    {% from "admin/_macros.html" import page_nav with context %}
+                    {{ page_nav('admin.get_seek_help') }}
+                </div>
+            {% endif %}
+        </div><!-- /# column -->
+    </div>
+{% endblock %}
+{% block js %}
+    {{ super() }}
+    <script>
+
+        function onDeleteSeekHelp(ele) {
+            var id = ele.getAttribute('data-id');
+
+            $.ajax({
+                url: "/v1/seek-help/" + id,
+                type: 'DELETE',
+                success: function () {
+                    swal("修改成功", "", "success")
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2500)
+                }
+            })
+        }
+
+    </script>
+{% endblock %}
