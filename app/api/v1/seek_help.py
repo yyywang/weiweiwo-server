@@ -5,8 +5,7 @@
 import math
 from flask import current_app, g
 from sqlalchemy import func
-from werkzeug.exceptions import HTTPException
-from app.libs.error_code import Success, DeleteSuccess, ParameterException
+from app.libs.error_code import Success, DeleteSuccess
 from app.libs.map import get_address_by_location_from_tx_map, get_all_distance_from_tx_map
 from app.libs.redprint import Redprint
 from app.libs.token_auth import auth
@@ -51,19 +50,17 @@ def get_shs_by_location():
     """
     form = GetDataByLocationForm().validate_for_api()
     per_page = current_app.config['RESCUE_LIST_PER_PAGE']
-    try:
-        if form.province.data == "全部":
-            all_shs = SeekHelp.query.filter_by().all()
-        elif form.city.data == "全部":
-            all_shs = SeekHelp.query.filter_by(province=form.province.data).all()
-        elif form.district.data == "全部":
-            all_shs = SeekHelp.query.filter_by(province=form.province.data, city=form.city.data).all()
-        else:
-            # 按 省/市/区 筛选
-            all_shs = SeekHelp.query.filter_by(
-                province=form.province.data, city=form.city.data, district=form.district.data).all()
-    except HTTPException:
-        raise ParameterException(msg='page out range')
+
+    if form.province.data == "全部":
+        all_shs = SeekHelp.query.filter_by().all()
+    elif form.city.data == "全部":
+        all_shs = SeekHelp.query.filter_by(province=form.province.data).all()
+    elif form.district.data == "全部":
+        all_shs = SeekHelp.query.filter_by(province=form.province.data, city=form.city.data).all()
+    else:
+        # 按 省/市/区 筛选
+        all_shs = SeekHelp.query.filter_by(
+            province=form.province.data, city=form.city.data, district=form.district.data).all()
 
     all_shs = __sort_sh_by_speed(all_shs, reverse=True) # 将数据按 speed 降序排序
     pagination = __pagination_seek_help(all_shs, page=form.page.data, per_page=per_page)
@@ -279,8 +276,8 @@ def __pagination_seek_help(seek_help_list, page=1 ,per_page=10):
     page = int(page)
     per_page = int(per_page)
 
-    if page > pages:
-        raise ParameterException('page out range')
+    # if page > pages:
+    #     raise ParameterException('page out range')
 
     has_next = True if pages > page else False
     has_prev = True if 1 < page <= int(pages) else False

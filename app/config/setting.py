@@ -21,3 +21,6 @@ WX_LOGIN_BASE_URL = "https://api.weixin.qq.com/sns/jscode2session"
 HIGH_SPEED = 8
 MIDDLE_SPEED = 3
 LOW_SPEED = 0
+
+# 性别 0:未知；1:男性；2:女性
+GENDER = (0,1,2)

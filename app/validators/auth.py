@@ -2,8 +2,10 @@
 """
   Created by Wesley on 2020/2/10.
 """
-from wtforms import StringField, PasswordField, BooleanField, IntegerField, SelectField
+from flask import current_app
+from wtforms import StringField, PasswordField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Email, Regexp, length, ValidationError, URL, Length
+from app.libs.error_code import ParameterException
 from app.validators.base import BaseForm as Form
 from app.libs.enums import ClientTypeEnum
 from app.models.user import User
@@ -60,4 +62,16 @@ class TokenForm(Form):
 class UserUpdateForm(Form):
     wx_name = StringField(Length(max=128))
     wx_avatar = StringField(length(max=1000))
-    gender = SelectField(choices=[(('0', '未知'), ('1','男'), ('2','女'))])
+    gender = IntegerField()
+    # !若未传任何参数，返回参数错误代码。在最后一个参数校验中写
+
+    def validate_gender(self, value):
+        # 校验性别参数是否正确
+        if not value.data is None:
+            gender_list = current_app.config['GENDER']
+            if value.data not in gender_list:
+                raise ParameterException(msg='gender invalid')
+
+        # 若未传任何参数，返回参数错误代码
+        if self.wx_name.data is None and self.wx_avatar.data is None and value.data is None:
+            raise ParameterException(msg='At least one parameter is required')
