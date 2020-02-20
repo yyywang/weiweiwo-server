@@ -16,6 +16,7 @@ TX_MAP_GET_ADDRESS_BASE_URL = 'https://apis.map.qq.com/ws/geocoder/v1/'
 
 # 微信小程序相关
 WX_LOGIN_BASE_URL = "https://api.weixin.qq.com/sns/jscode2session"
+GET_TOKEN_BASE_URL = "https://api.weixin.qq.com/cgi-bin/token"
 
 # 好友助力速度
 HIGH_SPEED = 8

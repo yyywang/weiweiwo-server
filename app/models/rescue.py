@@ -28,7 +28,7 @@ class Rescue(Base, MixinJSONSerializer):
 
 
     def _set_fields(self):
-        self._fields = ['id', 'note', 'help_range', 'cost', 'location', 'rescuer', 'wx_id', 'phone']
+        self._fields = ['id', 'note', 'help_range', 'cost', 'location', 'rescuer', 'wx_id', 'phone', 'cancel']
 
     @property
     def location(self):

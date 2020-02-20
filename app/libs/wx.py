@@ -30,3 +30,18 @@ def wx_get_user_by_code(code):
         raise ClientTypeError(msg=wx_data.get('errmsg', None))
     else:
         raise ServerError()
+
+def get_access_token():
+    """从微信服务器获取 access_token """
+    params = {
+        "grant_type": "client_credential",
+        "appid": current_app.config['APP_ID'],
+        "secret": current_app.config['APP_SECRET']
+    }
+
+    while True:
+        try:
+            base_url = current_app.config['GET_TOKEN_BASE_URL']
+            response = requests.post(base_url, params).json()
+        except Exception:
+            raise ServerError()
