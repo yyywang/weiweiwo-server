@@ -66,35 +66,6 @@ eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjE3MjYzOCwiZXhwIjoxNTgyMzQ1NDM4fQ.eyJ1aWQiOjEsI
 
 
 
-# 已完成接口
+# 待办
 
-- 客户端相关
-    - POST /v1/client/register
-- token 相关
-    - POST /v1/token
-    - POST /v1/token/secret
-- “求喂养”相关
-    - POST /v1/seek-help
-    - PUT  /v1/seek-help/\<int:id\>
-    - GET  /v1/seek-help/\<int:id\>
-    - GET  /v1/seek-help/location
-    - GET  /v1/seek-help/distance 
-    - POST /v1/seek-help/error
-    - POST /v1/seek-help/\<int:id\>/boost
-    - GET  /v1/seek-help/\<int:id\>/boost 缺少 <statistics>字段
- 
-- “我能帮”相关
-
-    - POST /v1/rescue
-    - GET  /v1/rescue/location
-    
-- 用户相关
-
-    - PUT  /v1/user/profile
-    - GET  /v1/user/seek-help
-    - GET  /v1/user/seek-help/\<int:id\>
-    - PUT  /v1/user/seek-help/\<int:id\>/cancel-or-not
-    
-    - GET  /v1/user/rescue
-    - GET  /v1/user/rescue/\<int:id\>
-    - PUT  /v1/user/rescue/\<int:id\>/cancel-or-not
+1. 资料填完后下载二维码给胖墩

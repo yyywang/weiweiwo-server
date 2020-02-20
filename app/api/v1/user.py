@@ -88,7 +88,7 @@ def cancel_or_not_seek_help(sid):
 @api.route('/rescue')
 @auth.login_required
 def get_rescue_list():
-    """获取我能帮列表，分页返回"""
+    """获取我的我能帮列表，分页返回"""
     form = PageForm().validate_for_api()
     user = User.query.filter_by(id=g.user.uid).first_or_404()
     per_page = current_app.config['RESCUE_PER_PAGE']
