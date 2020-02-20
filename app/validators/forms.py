@@ -96,11 +96,11 @@ class RescueForm(Form):
 
 
     def validate_help_range(self, value):
-        if value.data < 0:
+        if int(value.data) < 0:
             raise ParameterException(msg='help_range must be not less than 0')
 
     def validate_cost(self, value):
-        if value.data < 0:
+        if int(value.data) < 0:
             raise ParameterException(msg='cost must be not less than 0')
 
     def validate_phone(self, value):
