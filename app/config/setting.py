@@ -23,4 +23,13 @@ MIDDLE_SPEED = 3
 LOW_SPEED = 0
 
 # 性别 0:未知；1:男性；2:女性
-GENDER = (0,1,2)
+GENDER = [{
+    "value": 0,
+    "des": "未知"
+},{
+    "value": 1,
+    "des": "男性"
+},{
+    "value": 2,
+    "des": "女性"
+}]

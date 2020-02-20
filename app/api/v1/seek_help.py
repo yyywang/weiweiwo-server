@@ -37,6 +37,14 @@ def seek_help():
     return Success()
 
 
+@api.route('/<int:sid>')
+@auth.login_required
+def get_seek_help(sid):
+    """返回 id=sid 的 SeekHelp"""
+    obj_seek_help = SeekHelp.query.filter_by(id=sid).first_or_404()
+    return Success(data=obj_seek_help)
+
+
 @api.route('/location')
 @auth.login_required
 def get_shs_by_location():
