@@ -9,6 +9,7 @@ from app.libs.error_code import AuthFailed, Success, Forbidden
 from app.models.base import Base, db, MixinJSONSerializer
 from app.libs.wx import wx_get_user_by_code
 from app.models.boost_seek_help import BoostSeekHelp
+from app.models.rescue import Rescue
 from app.models.seek_help import SeekHelp
 
 
@@ -98,10 +99,18 @@ class User(Base, MixinJSONSerializer):
         if seek_help.author_id == self.id:
             raise Forbidden(msg="can't help yourself")
 
-    def cancel_or_not(self, sid):
+    def cancel_or_not_sh(self, sid):
         """取消/恢复 救助"""
         obj_seek_help = SeekHelp.query.filter_by(id=sid, author_id=self.id).first()
         if not obj_seek_help:
             raise Forbidden(msg='This is not your resource')
         with db.auto_commit():
             obj_seek_help.cancel = not obj_seek_help.cancel
+
+    def cancel_or_not_rescue(self, rid):
+        """取消/恢复 我能帮"""
+        obj_rescue = Rescue.query.filter_by(id=rid, author_id=self.id).first()
+        if not obj_rescue:
+            raise Forbidden(msg='This is not your resource')
+        with db.auto_commit():
+            obj_rescue.cancel = not obj_rescue.cancel

@@ -3,7 +3,7 @@
   Created by Wesley on 2019/12/30.
 """
 from flask import Blueprint
-from app.api.v1 import user, client, token, seek_help, rescue
+from app.api.v1 import user, client, token, seek_help, rescue, common
 
 
 def create_blueprint_v1():
@@ -15,5 +15,6 @@ def create_blueprint_v1():
     token.api.register(bp_v1)
     seek_help.api.register(bp_v1)
     rescue.api.register(bp_v1)
+    common.api.register(bp_v1)
 
     return bp_v1

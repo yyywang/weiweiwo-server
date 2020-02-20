@@ -7,7 +7,7 @@ TOKEN_EXPIRATION = 2 * 3600
 # 首页每页救助信息数量
 RESCUE_LIST_PER_PAGE = 10
 # 搜索结果每页展示数量
-RESCUE_SEARCH_NUM_PER_PAGE = 10
+SEARCH_NUM_PER_PAGE = 10
 ADMIN_QUERY_NUM = 10
 
 # 腾讯地图相关
@@ -29,3 +29,4 @@ GENDER = {"value_list": (0,1,2),
 
 # 个人查询数量
 SEEK_HELP_PER_PAGE = 10
+RESCUE_PER_PAGE = 10

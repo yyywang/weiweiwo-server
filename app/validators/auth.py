@@ -75,7 +75,3 @@ class UserUpdateForm(Form):
         # 若未传任何参数，返回参数错误代码
         if self.wx_name.data is None and self.wx_avatar.data is None and value.data is None:
             raise ParameterException(msg='At least one parameter is required')
-
-
-class UserSeekHelpListFrom(Form):
-    page = IntegerField(default=1)

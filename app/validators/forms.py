@@ -108,3 +108,12 @@ class RescueForm(Form):
         reg = "1[3|4|5|7|8][0-9]{9}"
         if not re.findall(reg, value.data):
             raise ParameterException(msg='phone error')
+
+
+class PageForm(Form):
+    page = IntegerField(default=1)
+
+class SearchSHOrRescue(Form):
+    q = StringField(validators=[DataRequired()])
+    category = SelectField(choices=[('seek-help', '求喂养'), ('rescue', '我能帮')])
+    page = IntegerField(default=1)

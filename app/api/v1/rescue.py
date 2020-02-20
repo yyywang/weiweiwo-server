@@ -3,9 +3,7 @@
   Created by Wesley on 2020/2/7.
 """
 from flask import current_app, jsonify, g
-from sqlalchemy import or_
 from werkzeug.exceptions import HTTPException
-
 from app.libs.map import get_address_by_location_from_tx_map
 from app.libs.token_auth import auth
 from app.libs.error_code import Success, ParameterException
@@ -14,7 +12,7 @@ from app.libs.redprint import Redprint
 from app.models.base import db
 from app.models.rescue import Rescue
 from app.models.seek_help import SeekHelp
-from app.validators.forms import RescueSearchForm, RescueForm, GetDataByLocationForm
+from app.validators.forms import RescueForm, GetDataByLocationForm
 
 api = Redprint('rescue')
 
@@ -68,17 +66,6 @@ def get_rescues_by_location():
         raise ParameterException(msg='page out range')
 
     return Success(data=process_rsp_pagination(all_rescue))
-
-@api.route('/search')
-def search():
-    """搜索求助信息，支持 详细地址/手机号搜索"""
-    form = RescueSearchForm().validate_for_api()
-    q = '%' + form.q.data + '%'
-    per_page = current_app.config['RESCUE_SEARCH_NUM_PER_PAGE']
-    rescue_list = SeekHelp.query.filter(
-        or_(SeekHelp.address.like(q), SeekHelp.phone.like(q))
-    ).paginate(per_page=per_page, page=int(form.page.data))
-    return Success(data=process_rsp_pagination(rescue_list))
 
 
 @api.route('/<int:sid>')

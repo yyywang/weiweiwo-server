@@ -92,5 +92,9 @@ eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjE3MjYzOCwiZXhwIjoxNTgyMzQ1NDM4fQ.eyJ1aWQiOjEsI
 
     - PUT  /v1/user/profile
     - GET  /v1/user/seek-help
-    - GET  /v1/user/seek-help/32
-    - PUT  /v1/user/seek-help/32/cancel-or-not
+    - GET  /v1/user/seek-help/\<int:id\>
+    - PUT  /v1/user/seek-help/\<int:id\>/cancel-or-not
+    
+    - GET  /v1/user/rescue
+    - GET  /v1/user/rescue/\<int:id\>
+    - PUT  /v1/user/rescue/\<int:id\>/cancel-or-not

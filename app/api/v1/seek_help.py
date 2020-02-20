@@ -8,6 +8,7 @@ from sqlalchemy import func
 from app.libs.error_code import Success, DeleteSuccess
 from app.libs.map import get_address_by_location_from_tx_map, get_all_distance_from_tx_map
 from app.libs.redprint import Redprint
+from app.libs.statistics import get_boost_data
 from app.libs.token_auth import auth
 from app.models.base import db
 from app.models.boost_seek_help import BoostSeekHelp
@@ -177,7 +178,8 @@ def get_boost_seek_help(sid):
         if obj_seek_help.has_help:
             obj_seek_help.append('helpers')
 
-    obj_seek_help.append('is_self')  # 返回字段中加入 是否是发布者打开页面
+    obj_seek_help.statistics = get_boost_data() # 平台人数
+    obj_seek_help.append('is_self', 'statistics')  # 返回字段中加入 是否是发布者打开页面
     obj_seek_help.hide('rescued','traffic_ctrl','help_date', 'last_date')
     return Success(data=obj_seek_help)
 

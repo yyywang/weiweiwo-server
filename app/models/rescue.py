@@ -2,7 +2,7 @@
 """
   Created by Wesley on 2020/2/19.
 """
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from app.models.base import MixinJSONSerializer, Base
 
 
@@ -24,6 +24,7 @@ class Rescue(Base, MixinJSONSerializer):
     wx_id = Column(String(50))
     note = Column(String(100)) # 备注
     author_id = Column(Integer, ForeignKey('user.id'))
+    cancel = Column(Boolean, default=False) # 用户是否取消我能帮信息
 
 
     def _set_fields(self):
