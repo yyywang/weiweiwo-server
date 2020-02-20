@@ -29,7 +29,8 @@ class AdminScope(Scope):
 
 
 class UserScope(Scope):
-    allow_api = ['v1.user+get_user', 'v1.user+delete_user', 'v1.user+update_user']
+    allow_api = ['v1.user+get_user', 'v1.user+delete_user', 'v1.user+update_user',
+                 'v1.user+get_seek_help_list', 'v1.user+get_seek_help', 'v1.user+cancel_or_not_seek_help']
     allow_module = ['v1.seek-help', 'v1.rescue']
 
 

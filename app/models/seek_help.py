@@ -4,7 +4,7 @@
 """
 from datetime import datetime
 from flask import g
-from sqlalchemy import Column, Integer, SmallInteger, String, ForeignKey
+from sqlalchemy import Column, Integer, SmallInteger, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from app.models.base import Base, MixinJSONSerializer
 from app.models.boost_seek_help import BoostSeekHelp
@@ -29,15 +29,17 @@ class SeekHelp(Base, MixinJSONSerializer):
     traffic_control = Column(SmallInteger) # 交通管控
     phone = Column(String(20))
     wx_id = Column(String(50))
+    cancel = Column(Boolean, default=False) # 用户是否取消救助
     author_id = Column(Integer, ForeignKey('user.id'))
     update_logs = relationship('SeekHelpUpdateLog', backref='seek_help')
     error_feedbacks = relationship('ErrorFeedback', backref='seek_help') # 纠错
     boosts = relationship('BoostSeekHelp', backref='seek_help') # 助力信息
 
+
     def _set_fields(self):
         self._fields = ['id', 'cat_num', 'dog_num', 'last_date',
                         'help_date', 'support_days', 'traffic_ctrl',
-                        'supplicant', 'location', 'rescued', 'speed']
+                        'supplicant', 'location', 'rescued', 'speed', 'cancel']
 
     @property
     def traffic_ctrl(self):

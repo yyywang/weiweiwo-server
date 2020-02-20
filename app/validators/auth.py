@@ -69,9 +69,13 @@ class UserUpdateForm(Form):
         # 校验性别参数是否正确
         if not value.data is None:
             gender_list = current_app.config['GENDER']
-            if value.data not in gender_list:
+            if value.data not in gender_list['value_list']:
                 raise ParameterException(msg='gender invalid')
 
         # 若未传任何参数，返回参数错误代码
         if self.wx_name.data is None and self.wx_avatar.data is None and value.data is None:
             raise ParameterException(msg='At least one parameter is required')
+
+
+class UserSeekHelpListFrom(Form):
+    page = IntegerField(default=1)

@@ -22,14 +22,10 @@ HIGH_SPEED = 8
 MIDDLE_SPEED = 3
 LOW_SPEED = 0
 
+# -------- 用户相关 ---------- #
 # 性别 0:未知；1:男性；2:女性
-GENDER = [{
-    "value": 0,
-    "des": "未知"
-},{
-    "value": 1,
-    "des": "男性"
-},{
-    "value": 2,
-    "des": "女性"
-}]
+GENDER = {"value_list": (0,1,2),
+          "des_list":("未知", "男性", "女性")}
+
+# 个人查询数量
+SEEK_HELP_PER_PAGE = 10

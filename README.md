@@ -75,7 +75,8 @@ eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjE3MjYzOCwiZXhwIjoxNTgyMzQ1NDM4fQ.eyJ1aWQiOjEsI
     - POST /v1/token/secret
 - “求喂养”相关
     - POST /v1/seek-help
-    - PUT  /v1/seek-help
+    - PUT  /v1/seek-help/\<int:id\>
+    - GET  /v1/seek-help/\<int:id\>
     - GET  /v1/seek-help/location
     - GET  /v1/seek-help/distance 
     - POST /v1/seek-help/error
@@ -90,3 +91,6 @@ eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjE3MjYzOCwiZXhwIjoxNTgyMzQ1NDM4fQ.eyJ1aWQiOjEsI
 - 用户相关
 
     - PUT  /v1/user/profile
+    - GET  /v1/user/seek-help
+    - GET  /v1/user/seek-help/32
+    - PUT  /v1/user/seek-help/32/cancel-or-not
