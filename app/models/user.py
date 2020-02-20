@@ -22,9 +22,9 @@ class User(Base, MixinJSONSerializer):
     error_feedbacks = relationship('ErrorFeedback', backref='author')
     boosts = relationship('BoostSeekHelp', backref='helper')
     rescues = relationship('Rescue', backref='author') # 我能帮
-    wx_open_id = Column(String(255), unique=True)
-    wx_name = Column(String(255))
-    wx_avatar = Column(String(255))
+    wx_open_id = Column(String(128), unique=True)
+    wx_name = Column(String(128))
+    wx_avatar = Column(String(1000))
     gender = Column(SmallInteger) # 性别：0-未知；1-男性；2-女性
 
     @property
