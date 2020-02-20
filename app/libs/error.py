@@ -6,6 +6,8 @@
   2.我们没有意识到的异常——未知异常，如何统一数据的返回格式？即json格式
     解决办法：在全局的某个地方捕获到所有未知异常，统一处理未知异常——AOP
 """
+import json
+
 from flask import request, jsonify
 from werkzeug.exceptions import HTTPException
 
@@ -38,7 +40,7 @@ class APIException(HTTPException):
         if self.data:
             body['data']= self.data
 
-        text = str(jsonify(body).json).replace("'", '"')
+        text = json.dumps(jsonify(body).json)
         return text
 
     def get_headers(self, environ=None):

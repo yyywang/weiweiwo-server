@@ -3,9 +3,9 @@
   Created by Wesley on 2019/12/30.
 """
 # online database
-SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:Bmw9*oqdU7@bj-cdb-jhnkgifa.sql.tencentcdb.com:61779/weiweiwo'
+# SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:Bmw9*oqdU7@bj-cdb-jhnkgifa.sql.tencentcdb.com:61779/weiweiwo'
 # localhost database
-# SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:python0096@localhost/wuhan'
+SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:python0096@localhost/weiweiwo'
 
 SECRET_KEY = '\xb8V\xa0\x8c\\\x9aHT\x9e\xd2\x89_\\l\x0e\x9e'
 
