@@ -8,7 +8,9 @@
 # SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:python0096@localhost/weiweiwo'
 
 # V2 database
-SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:Bmw9*oqdU7@bj-cdb-jhnkgifa.sql.tencentcdb.com:61779/test_www'
+# SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:Bmw9*oqdU7@bj-cdb-jhnkgifa.sql.tencentcdb.com:61779/test_www'
+
+SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:python0096@localhost/test_www'
 
 SECRET_KEY = '\xb8V\xa0\x8c\\\x9aHT\x9e\xd2\x89_\\l\x0e\x9e'
 

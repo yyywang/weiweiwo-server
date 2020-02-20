@@ -2,8 +2,8 @@
 """
   Created by Wesley on 2020/2/10.
 """
-from wtforms import StringField, PasswordField, BooleanField, IntegerField
-from wtforms.validators import DataRequired, Email, Regexp, length, ValidationError, URL
+from wtforms import StringField, PasswordField, BooleanField, IntegerField, SelectField
+from wtforms.validators import DataRequired, Email, Regexp, length, ValidationError, URL, Length
 from app.validators.base import BaseForm as Form
 from app.libs.enums import ClientTypeEnum
 from app.models.user import User
@@ -55,3 +55,9 @@ class WxLoginForm(ClientForm):
 
 class TokenForm(Form):
     token = StringField(validators=[DataRequired()])
+
+
+class UserUpdateForm(Form):
+    wx_name = StringField(Length(max=128))
+    wx_avatar = StringField(length(max=1000))
+    gender = SelectField(choices=[(('0', '未知'), ('1','男'), ('2','女'))])

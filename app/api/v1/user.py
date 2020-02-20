@@ -3,11 +3,12 @@
   Created by Wesley on 2019/12/30.
 """
 from flask import jsonify, g
-from app.libs.error_code import DeleteSuccess
+from app.libs.error_code import DeleteSuccess, Success
 from app.libs.redprint import Redprint
 from app.libs.token_auth import auth
 from app.models.base import db
 from app.models.user import User
+from app.validators.auth import UserUpdateForm
 
 api = Redprint('user')
 
@@ -27,6 +28,17 @@ def get_user():
     user = User.query.filter_by(id=uid)\
         .first_or_404(description='user not found')
     return jsonify(user)
+
+
+@api.route('', methods=['PUT'])
+@auth.login_required
+def update_user():
+    """更新用户信息"""
+    form = UserUpdateForm().validate_for_api()
+    user = User.query.filter_by().first_or_404()
+    with db.auto_commit():
+        user.set_attrs(form.data)
+    return Success()
 
 
 @api.route('', methods=['DELETE'])

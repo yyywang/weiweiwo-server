@@ -49,7 +49,7 @@ puthon wuhan.py
 
 # token
 
-eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjAxNjIwNiwiZXhwIjoxNTg0NjA4MjA2fQ.eyJ1aWQiOjMsInR5cGUiOjIwMCwic2NvcGUiOiJVc2VyU2NvcGUifQ.wnPImsHxGZGvH38mVgr4QKOCh4h9eZzU3FRn9jj8fzMeUqfHB-3D_eJ1U-xnNGO-nZj8nInZzqt_apDx-VZ7rQ
+eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjE3MjYzOCwiZXhwIjoxNTgyMzQ1NDM4fQ.eyJ1aWQiOjEsInR5cGUiOjIwMCwic2NvcGUiOiJVc2VyU2NvcGUifQ.t8SFXrE1Np2KZTbUM6xV5EaM9Vw5OR4WX4aWEtthZSPN5ersljhKNiBC8g0c-08sCZKRgGxITwRQNeIWqVReNg
 
 # 未完成功能
 
@@ -86,3 +86,7 @@ eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjAxNjIwNiwiZXhwIjoxNTg0NjA4MjA2fQ.eyJ1aWQiOjMsI
 
     - POST /v1/rescue
     - GET  /v1/rescue/location
+    
+- 用户相关
+
+    - PUT  /v1/user/profile
