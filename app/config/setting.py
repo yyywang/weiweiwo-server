@@ -17,6 +17,10 @@ TX_MAP_GET_ADDRESS_BASE_URL = 'https://apis.map.qq.com/ws/geocoder/v1/'
 # 微信小程序相关
 WX_LOGIN_BASE_URL = "https://api.weixin.qq.com/sns/jscode2session"
 GET_TOKEN_BASE_URL = "https://api.weixin.qq.com/cgi-bin/token"
+GET_WX_A_UNLIMIT_CODE_BASE_URL = "https://api.weixin.qq.com/wxa/getwxacodeunlimit"
+SEND_SUBSCRIBE_MSG_BASE_URL = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send"
+MINIPROGRAM_STATE = "developer"
+# developer为开发版；trial为体验版；formal为正式版；默认为正式版
 
 # 好友助力速度
 HIGH_SPEED = 8
@@ -31,3 +35,7 @@ GENDER = {"value_list": (0,1,2),
 # 个人查询数量
 SEEK_HELP_PER_PAGE = 10
 RESCUE_PER_PAGE = 10
+
+
+# SQLALCHEMY_TRACK_MODIFICATIONS = True
+# SQLALCHEMY_COMMIT_TEARDOWN = True

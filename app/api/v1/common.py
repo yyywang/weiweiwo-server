@@ -2,15 +2,17 @@
 """
   Created by Wesley on 2020/2/20.
 """
-from flask import current_app
+from flask import current_app, send_file, Response
 from sqlalchemy import or_
 from app.libs.error_code import ParameterException, Success
 from app.libs.jsonify_helper import process_rsp_pagination
 from app.libs.redprint import Redprint
 from app.libs.token_auth import auth
+from app.libs.wx import get_access_token, get_a_unlimit_code
 from app.models.rescue import Rescue
 from app.models.seek_help import SeekHelp
 from app.validators.forms import SearchSHOrRescue
+from app.validators.wx import AUnlimitCodeForm
 
 api = Redprint('common')
 
@@ -35,3 +37,20 @@ def search_sh_or_rescue():
         raise ParameterException()
 
     return Success(data=process_rsp_pagination(pagination))
+
+
+@api.route('/wx/unlimit-code', methods=['POST'])
+@auth.login_required
+def get_a_wx_unlimit_code():
+    """获取一张无限制的微信小程序二维码
+    wx_doc: https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html
+    """
+    form = AUnlimitCodeForm().validate_for_api()
+    data = get_a_unlimit_code(form.data)
+    return Response(data, mimetype="image/png")
+
+
+@api.route('/test')
+def test():
+    wx_access_key = get_access_token()
+    return Success(data=wx_access_key)

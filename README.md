@@ -68,4 +68,6 @@ eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjE3MjYzOCwiZXhwIjoxNTgyMzQ1NDM4fQ.eyJ1aWQiOjEsI
 
 # 待办
 
-1. 资料填完后下载二维码给胖墩
+1. 模板id
+2. 助力接口
+3. 订阅消息通知

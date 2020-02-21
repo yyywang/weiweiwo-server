@@ -42,7 +42,7 @@ def seek_help():
 @auth.login_required
 def get_seek_help(sid):
     """返回 id=sid 的 SeekHelp"""
-    obj_seek_help = SeekHelp.query.filter_by(id=sid).first_or_404()
+    obj_seek_help = SeekHelp.query.filter_by(id=sid, cancel=False).first_or_404()
     return Success(data=obj_seek_help)
 
 
@@ -61,15 +61,15 @@ def get_shs_by_location():
     per_page = current_app.config['RESCUE_LIST_PER_PAGE']
 
     if form.province.data == "全部":
-        all_shs = SeekHelp.query.filter_by().all()
+        all_shs = SeekHelp.query.filter_by(cancel=False).all()
     elif form.city.data == "全部":
-        all_shs = SeekHelp.query.filter_by(province=form.province.data).all()
+        all_shs = SeekHelp.query.filter_by(cancel=False, province=form.province.data).all()
     elif form.district.data == "全部":
-        all_shs = SeekHelp.query.filter_by(province=form.province.data, city=form.city.data).all()
+        all_shs = SeekHelp.query.filter_by(cancel=False, province=form.province.data, city=form.city.data).all()
     else:
         # 按 省/市/区 筛选
         all_shs = SeekHelp.query.filter_by(
-            province=form.province.data, city=form.city.data, district=form.district.data).all()
+            cancel=False, province=form.province.data, city=form.city.data, district=form.district.data).all()
 
     all_shs = __sort_sh_by_speed(all_shs, reverse=True) # 将数据按 speed 降序排序
     pagination = __pagination_seek_help(all_shs, page=form.page.data, per_page=per_page)
@@ -148,7 +148,7 @@ def boost_seek_help(sid):
     :param sid: id of SeekHelp
     :return: APIException
     """
-    obj_seek_help = SeekHelp.query.filter_by(id=sid).first_or_404()
+    obj_seek_help = SeekHelp.query.filter_by(cancel=False, id=sid).first_or_404()
     obj_user = User.query.filter_by(id=g.user.uid).first_or_404()
 
     obj_user.verify_boost(obj_seek_help) # 校验用户能否助力此 seek_help
@@ -169,7 +169,7 @@ def get_boost_seek_help(sid):
     :param sid: id of SeekHelp
     :return: 
     """
-    obj_seek_help = SeekHelp.query.filter_by(id=sid).first_or_404()
+    obj_seek_help = SeekHelp.query.filter_by(cancel=False, id=sid).first_or_404()
 
     if obj_seek_help.is_self:
         obj_seek_help.append('helpers')
@@ -210,7 +210,7 @@ def __sort_index_sh(pos_from):
     :param pos_from: 
     :return: 
     """
-    seek_help_list = SeekHelp.query.filter_by().all()
+    seek_help_list = SeekHelp.query.filter_by(cancel=False).all()
     all_shs = get_shs_by_level(seek_help_list) # 按助力等级分类
 
     # 同一状态内数据排序

@@ -31,10 +31,15 @@ def register_blueprints(app):
 def register_plugin(app):
     from app.models.base import db
     from flask_migrate import Migrate
+    from flask_apscheduler import APScheduler
 
     db.init_app(app)
     migrate = Migrate()
     migrate.init_app(app=app, db=db)
+    # scheduler = APScheduler()
+    # scheduler.init_app(app)
+    # scheduler_add_job(scheduler) # 添加定时任务
+    # scheduler.start()
     with app.app_context():
         db.create_all()
 
@@ -61,3 +66,8 @@ def register_logging(app):
     if not app.debug:
         app.logger.addHandler(file_handler)
         app.logger.addHandler(default_handler)
+
+
+def scheduler_add_job(scheduler):
+    """添加定时任务"""
+    pass

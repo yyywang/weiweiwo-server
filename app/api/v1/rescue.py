@@ -49,18 +49,18 @@ def get_rescues_by_location():
     per_page = current_app.config['RESCUE_LIST_PER_PAGE']
     try:
         if form.province.data == "全部":
-            all_rescue = Rescue.query.filter_by().order_by(
+            all_rescue = Rescue.query.filter_by(cancel=False).order_by(
                 Rescue.create_time.desc()).paginate(page=int(form.page.data), per_page=per_page)
         elif form.city.data == "全部":
-            all_rescue = Rescue.query.filter_by(province=form.province.data).order_by(
+            all_rescue = Rescue.query.filter_by(cancel=False,province=form.province.data).order_by(
                 Rescue.create_time.desc()).paginate(page=int(form.page.data), per_page=per_page)
         elif form.district.data == "全部":
-            all_rescue = Rescue.query.filter_by(province=form.province.data, city=form.city.data).order_by(
+            all_rescue = Rescue.query.filter_by(cancel=False,province=form.province.data, city=form.city.data).order_by(
                 Rescue.create_time.desc()).paginate(page=int(form.page.data), per_page=per_page)
         else:
             # 按 省/市/区 筛选
             all_rescue = Rescue.query.filter_by(
-                province=form.province.data, city=form.city.data, district=form.district.data).order_by(
+                cancel=False, province=form.province.data, city=form.city.data, district=form.district.data).order_by(
                 Rescue.create_time.desc()).paginate(page=int(form.page.data), per_page=per_page)
     except HTTPException:
         raise ParameterException(msg='page out range')
