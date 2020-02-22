@@ -6,7 +6,6 @@ import os
 
 DEBUG = False
 TOKEN_EXPIRATION = 2 * 3600
-CACHE_TYPE = 'simple'
 
 # 首页每页救助信息数量
 RESCUE_LIST_PER_PAGE = 10
@@ -45,3 +44,8 @@ SEEK_HELP_PER_PAGE = 10
 RESCUE_PER_PAGE = 10
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+# 缓存相关
+cachedir = 'static' + os.sep + 'api' + os.sep + 'cache' + os.sep
+CACHE_TYPE = 'filesystem'
+CACHE_DIR = os.path.join(basedir, cachedir)

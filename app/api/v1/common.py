@@ -14,9 +14,10 @@ from app.models.rescue import Rescue
 from app.models.seek_help import SeekHelp
 from app.validators.forms import SearchSHOrRescue
 from app.validators.wx import AUnlimitCodeForm
-# from wuhan import cache
+from app.libs.extensions import cache
 
 api = Redprint('common')
+
 
 @api.route('/search')
 @auth.login_required
@@ -53,7 +54,8 @@ def get_a_wx_unlimit_code():
 
 
 @api.route('/test')
-# @cache.cached()
+@auth.login_required
+@cache.cached()
 def test():
     time.sleep(1)
     wx_access_key = get_access_token()

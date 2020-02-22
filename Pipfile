@@ -17,6 +17,7 @@ flask-migrate = "*"
 flask-apscheduler = "*"
 flask-debugtoolbar = "*"
 flask-caching = "*"
+redis = "*"
 
 [requires]
 python_version = "3.7"

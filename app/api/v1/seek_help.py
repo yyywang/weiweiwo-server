@@ -4,8 +4,8 @@
 """
 import math
 from flask import current_app, g
-from sqlalchemy import func
 from app.libs.error_code import Success, DeleteSuccess
+from app.libs.extensions import cache, session
 from app.libs.map import get_address_by_location_from_tx_map, get_all_distance_from_tx_map
 from app.libs.redprint import Redprint
 from app.libs.statistics import get_boost_data
@@ -35,10 +35,11 @@ def seek_help():
         obj_seek_help.set_attrs(location['result']['address_component'])
         obj_seek_help.author_id = g.user.uid
         db.session.add(obj_seek_help)
-    return Success()
+    return Success(data={"id": obj_seek_help.id})
 
 
 @api.route('/<int:sid>')
+# @cache.cached(query_string=True)
 @auth.login_required
 def get_seek_help(sid):
     """返回 id=sid 的 SeekHelp"""
@@ -48,6 +49,7 @@ def get_seek_help(sid):
 
 @api.route('/location')
 @auth.login_required
+# @cache.cached(query_string=True)
 def get_shs_by_location():
     """获取 求助 数据列表，根据 省/市/区 筛选
 
@@ -73,6 +75,7 @@ def get_shs_by_location():
 
     all_shs = __sort_sh_by_speed(all_shs, reverse=True) # 将数据按 speed 降序排序
     pagination = __pagination_seek_help(all_shs, page=form.page.data, per_page=per_page)
+
     return Success(data=pagination)
 
 
@@ -210,7 +213,7 @@ def __sort_index_sh(pos_from):
     :param pos_from: 
     :return: 
     """
-    seek_help_list = SeekHelp.query.filter_by(cancel=False).all()
+    seek_help_list = SeekHelp.query.filter_by(cancel=False).all()[:20]
     all_shs = get_shs_by_level(seek_help_list) # 按助力等级分类
 
     # 同一状态内数据排序
@@ -291,9 +294,12 @@ def __pagination_seek_help(seek_help_list, page=1 ,per_page=10):
 
     has_next = True if pages > page else False
     has_prev = True if 1 < page <= int(pages) else False
+    items = seek_help_list[(page-1)*per_page : page*per_page]
+    # for item in items:
+    #     session.merge(item)
 
     return {
-        "items": seek_help_list[(page-1)*per_page : page*per_page],
+        "items": items,
         "page": page,
         "total": len(seek_help_list),
         "pages": pages,

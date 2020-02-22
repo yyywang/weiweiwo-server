@@ -18,3 +18,4 @@ def create_blueprint_v1():
     common.api.register(bp_v1)
 
     return bp_v1
+

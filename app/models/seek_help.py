@@ -31,9 +31,9 @@ class SeekHelp(Base, MixinJSONSerializer):
     wx_id = Column(String(50))
     cancel = Column(Boolean, default=False) # 用户是否取消救助
     author_id = Column(Integer, ForeignKey('user.id'))
-    update_logs = relationship('SeekHelpUpdateLog', backref='seek_help')
-    error_feedbacks = relationship('ErrorFeedback', backref='seek_help') # 纠错
-    boosts = relationship('BoostSeekHelp', backref='seek_help') # 助力信息
+    update_logs = relationship('SeekHelpUpdateLog', lazy='subquery', backref='seek_help')
+    error_feedbacks = relationship('ErrorFeedback', lazy='subquery',  backref='seek_help') # 纠错
+    boosts = relationship('BoostSeekHelp', lazy='subquery',  backref='seek_help') # 助力信息
 
 
     def _set_fields(self):

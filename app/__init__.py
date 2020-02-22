@@ -31,12 +31,15 @@ def register_blueprints(app):
 def register_plugin(app):
     from app.models.base import db
     from flask_migrate import Migrate
+    from app.libs.extensions import cache
+
     # from flask_debugtoolbar import DebugToolbarExtension
     from flask_apscheduler import APScheduler
 
     db.init_app(app)
     migrate = Migrate()
     migrate.init_app(app=app, db=db)
+    cache.init_app(app)
     # toolbar = DebugToolbarExtension()
     # toolbar.init_app(app)
     # scheduler = APScheduler()

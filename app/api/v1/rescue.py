@@ -30,7 +30,7 @@ def create_rescue():
         obj_rescue.set_attrs(location['result']['address_component'])
         obj_rescue.author_id = g.user.uid
         db.session.add(obj_rescue)
-    return Success()
+    return Success(data={"id": obj_rescue.id})
 
 
 @api.route('/location')
