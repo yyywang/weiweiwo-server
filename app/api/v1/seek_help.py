@@ -180,7 +180,7 @@ def get_boost_seek_help(sid):
 
     obj_seek_help.statistics = get_boost_data() # 平台人数
     obj_seek_help.append('is_self', 'statistics')  # 返回字段中加入 是否是发布者打开页面
-    obj_seek_help.hide('rescued','traffic_ctrl','help_date', 'last_date')
+    obj_seek_help.hide('rescued')
     return Success(data=obj_seek_help)
 
 
