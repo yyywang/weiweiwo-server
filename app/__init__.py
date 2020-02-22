@@ -37,6 +37,8 @@ def register_plugin(app):
     db.init_app(app)
     migrate = Migrate()
     migrate.init_app(app=app, db=db)
+    # toolbar = DebugToolbarExtension()
+    # toolbar.init_app(app)
     # scheduler = APScheduler()
     # scheduler.init_app(app)
     # scheduler_add_job(scheduler) # 添加定时任务

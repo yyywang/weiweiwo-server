@@ -7,6 +7,7 @@ from app.libs.error_code import DeleteSuccess, Success
 from app.libs.jsonify_helper import process_rsp_pagination
 from app.libs.redprint import Redprint
 from app.libs.token_auth import auth
+from app.libs.util import dict_rm_none
 from app.models.base import db
 from app.models.rescue import Rescue
 from app.models.seek_help import SeekHelp
@@ -39,9 +40,9 @@ def get_user():
 def update_user():
     """更新用户信息"""
     form = UserUpdateForm().validate_for_api()
-    user = User.query.filter_by().first_or_404()
+    user = User.query.filter_by(id=g.user.uid).first_or_404()
     with db.auto_commit():
-        user.set_attrs(form.data)
+        user.set_attrs(dict_rm_none(form.data))
     return Success()
 
 

@@ -3,6 +3,7 @@
   Created by Wesley on 2020/2/7.
 """
 import click
+from flask_caching import Cache
 from werkzeug.exceptions import HTTPException
 from app import create_app
 from app.libs.error import APIException
@@ -13,6 +14,8 @@ from app.models.base import db
 __author__ = "怀月"
 
 app = create_app()
+# cache = Cache(app)
+
 
 @app.errorhandler(Exception)
 def framework_error(e):

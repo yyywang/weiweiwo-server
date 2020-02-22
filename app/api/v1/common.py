@@ -2,6 +2,7 @@
 """
   Created by Wesley on 2020/2/20.
 """
+import time
 from flask import current_app
 from sqlalchemy import or_
 from app.libs.error_code import ParameterException, Success
@@ -13,6 +14,7 @@ from app.models.rescue import Rescue
 from app.models.seek_help import SeekHelp
 from app.validators.forms import SearchSHOrRescue
 from app.validators.wx import AUnlimitCodeForm
+# from wuhan import cache
 
 api = Redprint('common')
 
@@ -51,6 +53,8 @@ def get_a_wx_unlimit_code():
 
 
 @api.route('/test')
+# @cache.cached()
 def test():
+    time.sleep(1)
     wx_access_key = get_access_token()
     return Success(data=wx_access_key)

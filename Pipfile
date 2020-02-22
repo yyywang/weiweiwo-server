@@ -16,6 +16,7 @@ flask-cors = "*"
 flask-migrate = "*"
 flask-apscheduler = "*"
 flask-debugtoolbar = "*"
+flask-caching = "*"
 
 [requires]
 python_version = "3.7"

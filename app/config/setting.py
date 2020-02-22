@@ -5,8 +5,9 @@
 import os
 
 DEBUG = False
-
 TOKEN_EXPIRATION = 2 * 3600
+CACHE_TYPE = 'simple'
+
 # 首页每页救助信息数量
 RESCUE_LIST_PER_PAGE = 10
 # 搜索结果每页展示数量
