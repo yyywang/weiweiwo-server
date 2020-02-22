@@ -31,6 +31,7 @@ def register_blueprints(app):
 def register_plugin(app):
     from app.models.base import db
     from flask_migrate import Migrate
+    # from flask_debugtoolbar import DebugToolbarExtension
     from flask_apscheduler import APScheduler
 
     db.init_app(app)

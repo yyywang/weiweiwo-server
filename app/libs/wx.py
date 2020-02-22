@@ -59,7 +59,11 @@ def get_a_unlimit_code(data):
 
 
 def save_code(content):
-    """将获取到的微信小程序二维码存储到本地"""
+    """
+    将获取到的微信小程序二维码存储到本地
+    :param content: 图片数据流
+    :return: 本地图片文件名
+    """
     if not os.path.exists(current_app.config["WX_UNLIMIT_CODE_DIR"]):
         os.makedirs(current_app.config["WX_UNLIMIT_CODE_DIR"])
         os.chmod(current_app.config["WX_UNLIMIT_CODE_DIR"], 0o777) # 更改目录操作权限

@@ -68,6 +68,6 @@ eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjAxNjIwNiwiZXhwIjoxNTg0NjA4MjA2fQ.eyJ1aWQiOjMsI
 
 # 待办
 
-1. 模板id
-2. 助力接口
-3. 订阅消息通知
+1. 订阅消息通知
+2. 缓存优化
+3. 数据库索引优化
