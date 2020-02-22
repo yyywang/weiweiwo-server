@@ -2,7 +2,7 @@
 """
   Created by Wesley on 2020/2/20.
 """
-from flask import current_app, send_file, Response
+from flask import current_app
 from sqlalchemy import or_
 from app.libs.error_code import ParameterException, Success
 from app.libs.jsonify_helper import process_rsp_pagination
@@ -46,8 +46,8 @@ def get_a_wx_unlimit_code():
     wx_doc: https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html
     """
     form = AUnlimitCodeForm().validate_for_api()
-    data = get_a_unlimit_code(form.data)
-    return Response(data, mimetype="image/png")
+    data = dict(img_url=get_a_unlimit_code(form.data))
+    return Success(data=data)
 
 
 @api.route('/test')

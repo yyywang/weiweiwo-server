@@ -2,7 +2,11 @@
 """
   Created by Wesley on 2019/12/30.
 """
+import os
+
 DEBUG = False
+DOMAIN = "http://www.ywtest.cn:5009"
+
 TOKEN_EXPIRATION = 2 * 3600
 # 首页每页救助信息数量
 RESCUE_LIST_PER_PAGE = 10
@@ -22,6 +26,10 @@ SEND_SUBSCRIBE_MSG_BASE_URL = "https://api.weixin.qq.com/cgi-bin/message/subscri
 MINIPROGRAM_STATE = "developer"
 # developer为开发版；trial为体验版；formal为正式版；默认为正式版
 
+basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+wx_unlimit_code_dir = 'static' + os.sep + 'api' + os.sep + 'wx' + os.sep + 'unlimit_code' + os.sep
+WX_UNLIMIT_CODE_DIR = os.path.join(basedir, wx_unlimit_code_dir)
+
 # 好友助力速度
 HIGH_SPEED = 8
 MIDDLE_SPEED = 3
@@ -35,6 +43,5 @@ GENDER = {"value_list": (0,1,2),
 # 个人查询数量
 SEEK_HELP_PER_PAGE = 10
 RESCUE_PER_PAGE = 10
-
 
 SQLALCHEMY_TRACK_MODIFICATIONS = True

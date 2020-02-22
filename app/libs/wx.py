@@ -4,10 +4,12 @@
   关于微信服务端的函数
 """
 import json
+import os
 from datetime import datetime
 import requests
-from flask import current_app
+from flask import current_app, url_for
 from app.libs.error_code import ServerError, ClientTypeError
+from app.libs.file_operator import get_random_filename
 from app.libs.staging import set_value_by_key, get_value_by_key
 from app.libs.util import dict_rm_none
 
@@ -37,7 +39,11 @@ def wx_get_user_by_code(code):
         raise ServerError()
 
 def get_a_unlimit_code(data):
-    """取一张无限制的微信小程序二维码"""
+    """
+    取一张无限制的微信小程序二维码
+    :param data: 
+    :return: 图片的 url
+    """
     base_url = current_app.config['GET_WX_A_UNLIMIT_CODE_BASE_URL']
     access_token = get_access_token()
     url = base_url + "?access_token=" + access_token
@@ -45,9 +51,23 @@ def get_a_unlimit_code(data):
 
     try:
         wx_data = requests.post(url, data=json.dumps(data))
-        return wx_data.content
+        filename = save_code(wx_data.content)
+        img_url = current_app.config['DOMAIN'] + url_for('static',filename='api/wx/unlimit_code/' + filename)
+        return img_url
     except Exception:
         ServerError()
+
+
+def save_code(content):
+    """将获取到的微信小程序二维码存储到本地"""
+    if not os.path.exists(current_app.config["WX_UNLIMIT_CODE_DIR"]):
+        os.makedirs(current_app.config["WX_UNLIMIT_CODE_DIR"])
+        os.chmod(current_app.config["WX_UNLIMIT_CODE_DIR"], 0o777) # 更改目录操作权限
+    filename = get_random_filename() + '.png'
+    save_path = current_app.config["WX_UNLIMIT_CODE_DIR"] + filename
+    with open(save_path, 'wb') as f:
+        f.write(content)
+    return filename
 
 
 def send_subscribe_msg(touser=None, template_id=None, data=None,
