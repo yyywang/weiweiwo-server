@@ -3,6 +3,8 @@
   Created by Wesley on 2019/12/30.
 """
 
+DOMAIN = "http://www.ywtest.cn:9999"
+
 # database
 
 # V1

@@ -5,7 +5,6 @@
 import os
 
 DEBUG = False
-DOMAIN = "http://www.ywtest.cn:5009"
 
 TOKEN_EXPIRATION = 2 * 3600
 # 首页每页救助信息数量
