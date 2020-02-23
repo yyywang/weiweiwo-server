@@ -9,6 +9,7 @@ from app.libs.error_code import ParameterException
 from app.validators.base import BaseForm as Form
 from app.libs.enums import ClientTypeEnum
 from app.models.user import User
+from wtforms import Form as FormForm
 
 
 class ClientForm(Form):
@@ -44,7 +45,7 @@ class UserEmailForm(ClientForm):
         if User.query.filter_by(email=value.data).first():
             raise ValidationError(message="账号已注册")
 
-class AdminLoginForm(Form):
+class AdminLoginForm(FormForm):
     account = StringField(validators=[DataRequired(message='账号必填')])
     password = PasswordField(validators=[DataRequired(message='密码必填')])
     remember = BooleanField(default=False)

@@ -11,7 +11,7 @@ TOKEN_EXPIRATION = 2 * 3600
 RESCUE_LIST_PER_PAGE = 10
 # 搜索结果每页展示数量
 SEARCH_NUM_PER_PAGE = 10
-ADMIN_QUERY_NUM = 10
+ADMIN_QUERY_NUM = 100
 
 # 腾讯地图相关
 TX_MAP_GET_DISTANCE_BASE_URL = 'https://apis.map.qq.com/ws/distance/v1/'

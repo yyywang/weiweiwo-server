@@ -51,7 +51,7 @@
                             <form action="{{ url_for('admin.login', next=request.args.next) }}" method="post">
                                 <div class="form-group">
                                     <label>账号</label>
-                                    <input type="text" name="account" class="form-control" placeholder="请输入账号" value="{{ form.account.data }}" required>
+                                    <input type="text" name="account" class="form-control" placeholder="请输入账号" value="{% if form.account.data %}{{ form.account.data }} {% endif %}" required>
                                 </div>
                                 <div class="form-group">
                                     <label>密码</label>
