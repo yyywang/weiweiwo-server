@@ -19,7 +19,7 @@ class User(Base, MixinJSONSerializer):
     nickname = Column(String(24), unique=True) # 邮箱注册的昵称
     auth = Column(SmallInteger, default=1)  # 权限类型，1 代表普通用户
     _password = Column('password', String(1000))
-    seek_helps = relationship('SeekHelp', backref='author')
+    seek_helps = relationship('SeekHelp', lazy='subquery',  backref='author')
     seek_help_update_logs = relationship('SeekHelpUpdateLog', backref='operator')
     error_feedbacks = relationship('ErrorFeedback', backref='author')
     boosts = relationship('BoostSeekHelp', backref='helper')

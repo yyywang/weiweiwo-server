@@ -29,12 +29,12 @@ def search_sh_or_rescue():
     if form.category.data == 'seek-help':
         pagination = SeekHelp.query.filter(
             SeekHelp.status == 1,
-            or_(SeekHelp.address.like(q), SeekHelp.phone.like(q))
+            or_(SeekHelp.address.like(q), SeekHelp.phone.like(q), SeekHelp.address_name.like(q))
         ).paginate(per_page=per_page, page=int(form.page.data))
     elif form.category.data == 'rescue':
         pagination = Rescue.query.filter(
             Rescue.status == 1,
-            or_(Rescue.address.like(q), Rescue.phone.like(q))
+            or_(Rescue.address.like(q), Rescue.phone.like(q), Rescue.address_name.like(q))
         ).paginate(per_page=per_page, page=int(form.page.data))
     else:
         raise ParameterException()

@@ -39,7 +39,6 @@ def seek_help():
 
 
 @api.route('/<int:sid>')
-# @cache.cached(query_string=True)
 @auth.login_required
 def get_seek_help(sid):
     """返回 id=sid 的 SeekHelp"""
@@ -49,7 +48,7 @@ def get_seek_help(sid):
 
 @api.route('/location')
 @auth.login_required
-# @cache.cached(query_string=True)
+# @cache.cached(query_string=True) # 默认缓存过期时间为 300s
 def get_shs_by_location():
     """获取 求助 数据列表，根据 省/市/区 筛选
 
