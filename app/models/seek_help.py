@@ -78,7 +78,8 @@ class SeekHelp(Base, MixinJSONSerializer):
         return dict(
             id=self.author_id,
             phone=self.phone,
-            wx_id=self.wx_id
+            wx_id=self.wx_id,
+            wx_name=self.author.wx_name
         )
 
     @property

@@ -63,8 +63,8 @@ def get_seek_help_list():
     form = PageForm().validate_for_api()
     user = User.query.filter_by(id=g.user.uid).first_or_404()
     per_page = current_app.config['SEEK_HELP_PER_PAGE']
-    pagination = SeekHelp.query.filter_by().with_parent(user).paginate(
-        page=int(form.page.data), per_page=per_page)
+    pagination = SeekHelp.query.filter_by().with_parent(user).order_by(
+        SeekHelp.create_time.desc()).paginate(page=int(form.page.data), per_page=per_page)
     return Success(data=process_rsp_pagination(pagination))
 
 
@@ -93,8 +93,8 @@ def get_rescue_list():
     form = PageForm().validate_for_api()
     user = User.query.filter_by(id=g.user.uid).first_or_404()
     per_page = current_app.config['RESCUE_PER_PAGE']
-    pagination = Rescue.query.filter_by().with_parent(user).paginate(
-        page=int(form.page.data), per_page=per_page)
+    pagination = Rescue.query.filter_by().with_parent(user).order_by(
+        Rescue.create_time.desc()).paginate(page=int(form.page.data), per_page=per_page)
     return Success(data=process_rsp_pagination(pagination))
 
 
