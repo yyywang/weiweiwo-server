@@ -47,28 +47,9 @@ puthon wuhan.py
 
 ----
 
-# token
-
-eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjAxNjIwNiwiZXhwIjoxNTg0NjA4MjA2fQ.eyJ1aWQiOjMsInR5cGUiOjIwMCwic2NvcGUiOiJVc2VyU2NvcGUifQ.wnPImsHxGZGvH38mVgr4QKOCh4h9eZzU3FRn9jj8fzMeUqfHB-3D_eJ1U-xnNGO-nZj8nInZzqt_apDx-VZ7rQ
-
-# 未完成功能
-
-1. 服务端配置生成小程序二维码接口
-2. 数据库建立字段索引优化查询
-3. 数据库缓存优化
-    - `GET  /v1/seek-help/\<int:id\>/boost <statistics>字段`
-
-# 备注
-## 1. 首页数据性能问题
-1. 按助力等级（高、中、低）分类所有求助信息
-2. 获取该用户位置与所有求助信息地点的距离（调用腾讯地图接口实现）
-3. 按公式（计算排序值=0.4*几天后需要帮助+0.6距离我多远，按从小到大排序）排序每个等级的数据
-
-
 
 # 待办
 
-1. 订阅消息通知
-2. 缓存优化
-3. 数据库索引优化
-4. 腾讯地图位置查询限制 200
+- 缓存优化
+- 数据库索引优化
+- 腾讯地图位置查询限制 200

@@ -3,7 +3,8 @@
   Created by Wesley on 2019/12/30.
 """
 
-DOMAIN = "http://www.ywtest.cn:9999"
+# DOMAIN = "http://www.ywtest.cn:9999"
+DOMAIN = 'https://weiweiwo.shenshou.life:9999'
 # DOMAIN = "https://www.ywtest.cn:5009"
 
 # database
