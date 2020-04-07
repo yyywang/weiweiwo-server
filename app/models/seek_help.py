@@ -79,7 +79,7 @@ class SeekHelp(Base, MixinJSONSerializer):
             id=self.author_id,
             phone=self.phone,
             wx_id=self.wx_id,
-            wx_name=self.author.wx_name
+            wx_name=self.author.wx_name if self.author is not None else None
         )
 
     @property
